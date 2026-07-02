@@ -11,3 +11,4 @@ Repositório unificado com slides, exercícios e algoritmos das aulas de Algorit
 | [`03-enquanto`](03-enquanto/) | Estrutura de repetição `enquanto` |
 | [`04-vetores`](04-vetores/) | Vetores |
 | [`05-funcoes`](05-funcoes/) | Funções e procedimentos |
+| [`06-registros`](06-registros/) | Registros e dados estruturados |
