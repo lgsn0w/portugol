@@ -1,0 +1,106 @@
+algoritmo "Desafio Final: Campeonato"
+
+tipo
+    Campeao = registro
+      nome: caractere
+      pontos: inteiro
+  fimregistro
+
+  funcao pontos (vitorias, derrotas: inteiro): inteiro
+  inicio
+    retorne pontos <-vitorias * 3
+  fimfuncao
+
+  funcao situacao (vitorias, derrotas: inteiro): inteiro
+  inicio
+
+    se vitorias>=3 entao
+      retorne "Classificado"
+    senao
+      se vitorias=derrotas entao
+        retorne "Na Zona de Risco"
+      senao
+         se derrotas>=3 entao
+            retorne "Eliminado"
+         senao
+            retorne "Em disputa"
+         fimse
+      fimse
+   fimse
+  fimfuncao
+
+var
+  nomes: vetor[1..16] de caractere
+  vitorias: vetor[1..16] de inteiro
+  derrotas: vetor[1..16] de inteiro
+  i, n, opcao, maiorpontos, posicao: inteiro 
+  nomebusca: caractere
+  melhor: Campeao 
+
+inicio
+
+  escreval("Digite quantos jogadores serão cadastrados (máx 16): ")
+  leia(n)
+
+    para i de 1 ate n faca
+      escreval("Digite o nome do jogador ", i, ": ")
+      leia(nomes[i])
+
+      vitorias[i] <-0
+      derrotas[i] <-0
+    fimpara
+    
+    
+  enquanto (opcao) faca
+    escreval("-MENU-")
+    escreval("1- Ver ranking completo")
+    escreval("2- Buscar jogador")
+    escreval("0- Sair")
+    leia(opcao)
+  fimenquanto
+
+  escolha opcao 
+    caso opcao=1
+      maiorpontos <- -1
+      escreval("-RANKING-")
+        para i de 1 ate n faca
+          pontos <- pontos(vitorias[i], derrotas[i])
+            escreval("Nome: ", nomes[i])
+            escreval("Vitorias: ", vitorias[i])
+            escreval("Derrotas: ", derrotas[i])
+            escreval("Pontos: ", pontos)
+            escreval("Situação: ", situacao(vitorias[i], derrotas[i]))
+            se pontos > maiorpontos entao
+              Campeao <- nomes[i]
+              maiorpontos <- pontos
+            fimse
+        fimpara
+
+  escreval("Lider do campeonato:")
+  escreval(Campeao, " - ", maiorpontos, " pontos")
+
+  caso opcao = 2
+    escreval("Digite o nome do jogador: ")
+    leia(nomebusca)
+      posicao <- 0
+        para i de 1 ate N faca
+          se nomes[i] = nomebusca entao
+            pos <- i
+          fimse
+        fimpara
+          se pos <> 0 entao
+            escreval()
+            escreval("Jogador encontrado!")
+            escreval("Nome: ", nomes[pos])
+            escreval("Vitórias: ", vitorias[pos])
+            escreval("Derrotas: ", derrotas[pos])
+            escreval("Pontos: ", Pontos(vitorias[pos], derrotas[pos]))
+            escreval("Situacao: ", situacao(vitorias[pos], derrotas[pos]))
+          senao
+            escreval("Jogador não encontrado.")
+          fimse
+
+fimalgoritmo
+  
+  
+
