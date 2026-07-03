@@ -1,0 +1,66 @@
+algoritmo "SED-Anne B. e Wemilly"
+
+funcao calcularpontos (v, d: inteiro): inteiro
+inicio
+  retorne v * 3
+fimfuncao
+
+tipo
+  campeao = registro
+  p = inteiro
+  nm = caractere
+  fimregistro
+
+var
+  N: vetor [1..16] de inteiro
+  i, soma, p, v, d: inteiro
+  nm: caractere
+  ganhador: campeao
+
+inicio
+
+  escreval("Digite quantos jogadores serão cadastrados (máximo 16): ")
+  leia(N)
+  soma <- 0
+  v <- 0
+  d <- 0
+
+  para i de 1 ate N faca
+    escreval("Digite o nome do jogador ", i, ":")
+    leia(nm)
+    escreval("Digite as vitórias do jogador ", i, ":")
+    leia(v)
+    escreval("Digite as derrotas do jogador ", i, ":")
+    leia(d)
+    soma <- soma + v + d
+  fimpara
+
+  p <- calcularpontos (v, d)
+  escreval("Total de Pontos: ", p)
+
+  se ((v >= 0) ou (d >= 0)) entao
+    escreval("Em disputa")
+  senao
+    se d >= 3 entao
+      escreval("Eliminado")
+    senao
+      se v=d entao
+        escreval("Na Zona de Risco")
+      senao
+        se v >= 3 entao
+          escreval("Classificado")
+        fimse
+      fimse
+    fimse
+  fimse
+
+  escreval("")
+  escreval("====== MENU ======")
+  escreval("1- Ver ranking completo")
+  escreval("2- Buscar jogador pelo nome")
+  escreval("")
+  caso 
+
+  
+
+fimalgoritmo
