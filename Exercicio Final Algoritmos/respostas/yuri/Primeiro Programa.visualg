@@ -1,0 +1,75 @@
+algoritmo "Campeonatogame"
+tipo 
+  campeao = registro
+    J: caractere
+    pontos: inteiro
+
+  fimregistro
+
+var
+  J: vetor[1..16] de caractere
+  vitoria: vetor [1..16] de inteiro
+  derrota: vetor [1..16] de inteiro
+
+  melhor : campeao
+
+  opcao, nj, i, pj, mp: inteiro
+
+inicio
+
+ para nj de 0 ate nj faca
+
+  funcao pontos(vitoria: inteiro): inteiro
+  inicio
+    pontos <- vitoria * 3
+  fimfuncao 
+
+  funcao situacao(vitoria, derrota: inteiro): inteiro
+  inicio
+
+    se (vitoria >= 3) entao
+      escreval("Classificado!!")
+    senao
+      se (vitoria = derrota) entao
+        escreval("Na Zona de Risco")
+      senao 
+        se (derrota >= 3) entao
+          escreval("Eliminado!")
+        senao
+          escreval("Em disputa!")
+        fimse
+      fimse
+    fimse
+  fimfuncao
+
+  inicio
+
+  escreval("Quantos jogadores deseja cadastrar? ")
+  leia(nj)
+
+  enquanto (nj < 1) ou (nj > 16) faca 
+    escreval("Valor invalido. Digite novamente: ")
+  fimenquanto
+
+
+    escreval("========= Menu do Jogador =========")
+    escreval("1- Ver ranking / 2- Buscar jogador / 0- Sair")
+    leia(opcao)
+
+    se opcao = 1 entao 
+      escreval("")
+      escreval("--------RANKING--------")
+      mp <- -1
+      para i de 1 ate nj faca 
+        escreval(j[i], " - pontos: ", pontos(vitoria[i], derrota[i]), " - ", situacao(vitoria[i], derrota[i]))
+        se pontos(vitoria[i], derrota[i]) > mp entao 
+          mp <- pontos(vitoria[i], derrota[i])
+          melhor.nome <- j[i]
+          melhor.pontos <- mp
+        fimse
+      fimpara
+      escreval("")
+      escreval("Lider atual: ", melhor.nome, " com ", melhor.pontos, " pontos ")
+    fimse 
+
+fimalgoritmo
