@@ -1,0 +1,117 @@
+algoritmo "Primeiro Programa"
+
+var
+   nomes       : vetor[1..16] de caractere
+   vitorias    : vetor[1..16] de inteiro
+   derrotas    : vetor[1..16] de inteiro
+
+   quantidade  : inteiro
+   i           : inteiro
+   pontos      : inteiro
+   maiorPontos : inteiro
+   lider       : caractere
+   nomeBusca   : caractere
+   encontrado  : logico
+   opcao       : inteiro
+
+inicio
+
+   escreva("Quantos jogadores serao cadastrados? (Maximo 16): ")
+   leia(quantidade)
+
+   se quantidade > 16 entao
+      quantidade <- 16
+   fimse
+
+   maiorPontos <- -1
+
+    para i de 1 ate quantidade faca
+
+      escreval("Nome do jogador ", i, ": ")
+      leia(nomes[i])
+
+      vitorias[i] <- 0
+      derrotas[i] <- 0
+
+      pontos <- vitorias[i] * 3 
+
+      se pontos > maiorPontos entao
+       maiorPontos <- pontos
+       lider <- nomes[i]
+      fimse
+
+    fimpara
+
+   opcao <- -1
+
+   enquanto opcao <> 0 faca
+
+    escreval()
+    escreval("1 - Ver ranking")
+    escreval("2 - Buscar jogador")
+    escreval("0 - Sair")
+    leia(opcao)
+
+    se opcao = 1 entao
+
+      para i de 1 ate quantidade faca
+
+       escreval("-----------------------")
+       escreval("Nome: ", nomes[i])
+       escreval("Pontos: ", vitorias[i] * 3)
+        se vitorias[i] >= 3 entao
+         escreval("Situacao: Classificado")
+        senao
+               se derrotas[i] >= 3 entao
+                  escreval("Situacao: Eliminado")
+                senao
+                  se (vitorias[i] = 0) e (derrotas[i] = 0) entao
+                   escreval("Situacao: Em disputa")
+                  senao 
+                    se vitorias[i] = derrotas[i] entao
+                     escreval("Situacao: Na Zona de Risco")
+                    senao
+                     escreval("Situacao: Em disputa")
+                    fimse
+                  fimse
+               fimse
+            fimse
+
+         fimpara
+
+         escreval("-----------------------")
+         escreval("Lider: ", lider)
+
+      senao
+
+         se opcao = 2 entao
+
+            escreva("Digite o nome do jogador: ")
+            leia(nomeBusca)
+
+            encontrado <- falso
+
+            para i de 1 ate quantidade faca
+
+               se nomeBusca = nomes[i] entao
+                  escreval("Nome: ", nomes[i])
+                  escreval("Vitorias: ", vitorias[i])
+                  escreval("Derrotas: ", derrotas[i])
+                  escreval("Pontos: ", vitorias[i] * 3)
+                  encontrado <- verdadeiro
+
+               fimse
+
+            fimpara
+
+            se encontrado = falso entao
+               escreval("Jogador nao encontrado.")
+            fimse
+
+         fimse
+
+      fimse
+
+   fimenquanto
+
+fimalgoritmo
