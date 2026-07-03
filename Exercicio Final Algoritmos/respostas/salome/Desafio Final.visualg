@@ -1,0 +1,110 @@
+algoritmo "Desafio Final"
+
+tipo 
+  Campeao=registro
+  nome: caractere
+  pontos: inteiro
+fimregistro
+
+var
+n: vetor[1..16] de inteiro
+i: inteiro
+nomes: caractere
+derrotas: vetor [1..16] de inteiro
+vitorias: vetor [1..16] de inteiro
+melhor: Campeao
+opcao: inteiro
+maiorpontos: inteiro
+nomebusca: caractere
+pos: inteiro
+pontos: inteiro
+
+escreval("Digite quantos jogadores serão cadastrados (máx 16): ")
+leia(n)
+
+para i de 1 ate n faca
+  escreval("Nome do jogador", i, ":")
+  leia(nomes)
+  vit[i] <- 0
+  derrot[i] <- 0 
+fimpara
+
+funcao calcular(vit: inteiro): inteiro
+  inicio
+  retorne pontos=vitorias*3
+fimfuncao
+
+funcao situacao (vit, derrot:inteiro): inteiro
+  inicio
+  se vit>=3 entao
+    retorne "Classificado"
+  senao
+    se vit=derrot entao
+      retorne "Zona de Risco"
+    senao
+      se derrot >=3 entao
+        retorne"Eliminado"
+      senao
+        retorne"Em disputa"
+      fimse  
+    fimse
+  fimse  
+fimfuncao
+
+enquanto (opcao) faca
+  escreval("")
+  escreval("----MENU----")
+  escreval("1-Ver o ranking completo")
+  escreval("2-Buscar jogador pelo nome")
+  escreval("3-Sair")
+  leia(opcao)
+fimenquanto
+
+se opcao =1 entao
+  escreval("")
+  escreval("-----------RANKING----------")
+  maiorpontos<- -1
+  para i de 1 ate n faca
+    escreval(nomes[i], "Pts: ", pontos(vit[i], derrot[i]), " - ", situacao(vit[i], derrot[i]))
+    se pontos(vit[i], derrot[i]) > maiorpontos entao
+    melhor.nomes <- nomes[i]
+    melhor.pontos <- maiorpontos
+  fimpara
+  escreval("")
+  escreval("Líder atual: ", melhor.nomes, " com ", melhor.pontos, " pontos ")
+fimse
+
+se opcao=2 entao
+  escreval("")
+  escreval("----------BUSQUEDA-----------")
+  escreval("Digite o nome do jogador: ")
+  leia(nomebusca)
+  pos <- 0
+  para i de 1 ate n faca
+    se nomes[i]=nomebusca entao
+      pos <- i
+    fimse
+  fimpara
+    se pos<>0 entao
+      escreval("")
+      escreval("Jogador Encontrado")
+      escreval("Nome: " nomes[pos])
+      escreval("Vitórias: ", vit[pos])
+      escreval("Derrotas: ", derrot[pos])
+      escreval("Pontos: ", pontos(vit[pos], derrot[pos]))
+      escreval("Situação: ", situacao(vit[pos], derrot[pos]))
+    senao
+      escreval("Jogador não encontrado.")
+    fimse        
+
+// Isabella Villa Torres, Salomé Ramírez Villa
+
+
+
+fimalgoritmo
+
+
+
+
+
+
