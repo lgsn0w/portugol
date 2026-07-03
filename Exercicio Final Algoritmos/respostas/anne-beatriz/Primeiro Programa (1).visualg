@@ -1,43 +1,29 @@
-algoritmo "SED-Anne B. e Wemilly"
+algoritmo "SED-Anne-e-Wemilly"
+
+tipo
+  campeao = registro
+    p : inteiro
+    nm : caractere
+  fimregistro
+
+var
+  nm: vetor [1..16] de caractere
+  v: vetor [1..16] de inteiro
+  d: vetor [1..16] de inteiro
+
+  melhor: campeao
+
+  N, i, p, opcao: inteiro
+  busca: caractere
+  achou: logico
 
 funcao calcularpontos (v, d: inteiro): inteiro
 inicio
   retorne v * 3
 fimfuncao
 
-tipo
-  campeao = registro
-  p = inteiro
-  nm = caractere
-  fimregistro
-
-var
-  N: vetor [1..16] de inteiro
-  i, soma, p, v, d: inteiro
-  nm: caractere
-  ganhador: campeao
-
+funcao situacao (v, d: inteiro): caractere
 inicio
-
-  escreval("Digite quantos jogadores serão cadastrados (máximo 16): ")
-  leia(N)
-  soma <- 0
-  v <- 0
-  d <- 0
-
-  para i de 1 ate N faca
-    escreval("Digite o nome do jogador ", i, ":")
-    leia(nm)
-    escreval("Digite as vitórias do jogador ", i, ":")
-    leia(v)
-    escreval("Digite as derrotas do jogador ", i, ":")
-    leia(d)
-    soma <- soma + v + d
-  fimpara
-
-  p <- calcularpontos (v, d)
-  escreval("Total de Pontos: ", p)
-
   se ((v >= 0) ou (d >= 0)) entao
     escreval("Em disputa")
   senao
@@ -53,14 +39,104 @@ inicio
       fimse
     fimse
   fimse
+fimfuncao
 
-  escreval("")
-  escreval("====== MENU ======")
-  escreval("1- Ver ranking completo")
-  escreval("2- Buscar jogador pelo nome")
-  escreval("")
-  caso 
+inicio
 
-  
+  escreval("Digite quantos jogadores serão cadastrados (máximo 16): ")
+  leia(N)
+
+  enquanto (N < 1) ou (N > 16) faca
+      escreva("Quantidade invalida. Digite novamente: ")
+      leia(N)
+   fimenquanto 
+
+  para i de 1 ate N faca
+    escreval("Digite o nome do jogador ", i, ":")
+    leia(nm)
+    escreval("Digite as vitórias do jogador ", i, ":")
+    leia(v[i])
+    escreval("Digite as derrotas do jogador ", i, ":")
+    leia(d[i])
+
+    p <- calcularpontos (v[i], d[i])
+
+    v[i] <- 0
+    d[i] <- 0
+
+
+    se p > melhor.p entao
+         melhor.p <- p
+         melhor.N <- N[i]
+      fimse
+  fimpara
+
+  opcao <- -1
+  enquanto opcao <> 0 faca
+    escreval("")
+    escreval("====== MENU ======")
+    escreval("1- Ver ranking completo")
+    escreval("2- Buscar jogador pelo nome")
+    escreval("0- Sair")
+    escreval("Escolha uma opção: ")
+    leia(opcao)
+
+    escolha opcao
+      caso 1
+        escreval("")
+        escreval("===== RANKING =====")
+
+        melhor.p <- -1
+
+        para i de 1 ate N faca
+
+          p <- calcularPontos(v[i], d[i])
+
+          escreval("Nome: ", nm[i])
+          escreval("Pontos: ", p)
+          escreval("Situacao: ", situacao(v[i], d[i]))
+          escreval("----------------------")
+
+          se p > melhor.p entao
+            melhor.p <- p
+            melhor.nm <- nm[i]
+          fimse
+        fimpara
+
+        escreval("Lider: ", melhor.nm)
+        escreval("Pontos: ", melhor.p)
+
+
+      caso 2
+        escreval("Digite o nome do jogador: ")
+        leia(busca)
+
+        achou <- falso
+
+        para i de 1 ate N faca
+          se nm[i] = busca entao
+
+            p <- calcularPontos(v[i], d[i])
+
+            escreval("Nome: ", nm[i])
+            escreval("Pontos: ", p)
+            escreval("Situacao: ", situacao(v[i], d[i]))
+
+            achou <- verdadeiro
+          fimse
+        fimpara
+
+        se achou = falso entao
+          escreval("Jogador nao encontrado.")
+        fimse
+
+
+      caso 0
+        escreval("Programa encerrado.")
+
+      outrocaso
+        escreval("Opção inválida!")
+    fimescolha
+  fimenquanto
 
 fimalgoritmo
