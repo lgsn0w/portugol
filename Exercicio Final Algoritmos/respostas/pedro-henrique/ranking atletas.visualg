@@ -1,0 +1,113 @@
+algoritmo "Primeiro Programa"
+
+tipo
+  campeao = registro
+  nome: caractere
+  pontos: inteiro
+fimregistro
+
+var
+   n           : inteiro
+   i           : inteiro
+   opcao       : inteiro
+   nomes       : vetor[1..16] de caractere
+   vitorias    : vetor[1..16] de inteiro
+   derrotas    : vetor[1..16] de inteiro
+   maiorpontos : inteiro
+   nomebusca   : caractere
+   nomeTemp    : caractere
+   encontrado  : logico
+   campeao     : caractere
+   situacao: caractere
+
+   funcao pontos(vitorias, derrotas: inteiro): inteiro
+   inicio
+    retorne pontos = vitorias * 3
+   fimfuncao
+
+  funcao situacao(vitorias, derrotas: inteiro): inteiro
+  inicio
+    se vitorias >= 3 entao
+      situacao <- "Classificado"
+    senao
+      se vitorias = derrotas entao
+        situacao <- "Na zona de risco"
+      senao
+        se derrotas >= 3 entao
+          situacao <- "Elminado"
+        senao
+          situacao <- "Em disputa"
+        fimse
+      fimse
+    fimse
+  fimfuncao
+
+inicio
+
+  escreval("Quantos jogadores serão cadastrados: (Maximo 16)")
+  leia(n)
+
+  enquanto (n < 1) ou (n > 16) faca
+    escreval("Numero invalido, tente novamente")
+    leia(n)
+  fimenquanto
+
+  para i de 1 ate n faca
+    escreval("Digite o nome do jogador ", i)
+    leia(nomes[i])
+
+    vitorias[i] <- 0
+    derrotas [i] <- 0 
+  fimpara
+
+  repita
+    escreval()
+    escreval("===== MENU =====")
+    escreval("1 - Ver ranking completo")
+    escreval("2 - Buscar jogador")
+    escreval("0 - Sair")
+    escreva("Opcao: ")
+    leia(opcao)
+
+    escolha opcao
+      caso opcao = 1
+        maiorpontos <- -1
+        escreval()
+        escreval("===== RANKING =====")
+          para i de 1 ate N faca
+            pontos <- pontos(vitorias[i], derrotas[i])
+              escreval("Nome: ", nomes[i])
+              escreval("Vitorias: ", vitorias[i])
+              escreval("Derrotas: ", derrotas[i])
+              escreval("Pontos: ", pontos)
+              escreval("Situacao: ", situacao(vitorias[i], derrotas[i]))
+              escreval("------------------------")
+                se pontos > maiorpontos entao
+                  campeao <- nomes[i]
+                  maiorpontos <- pontos
+                fimse
+            fimpara
+            escreval("Lider do campeonato:")
+            escreval(campeao, " - ", maiorpontos, " pontos")
+      caso opcao = 2
+        escreval("Digite o nome do jogador: ")
+        leia(nomebusca)
+        pos <- 0
+          para i de 1 ate N faca
+            se nomes[i] = nomebusca entao
+              pos <- i
+            fimse
+          fimpara
+            se pos <> 0 entao
+               escreval()
+               escreval("Jogador encontrado!")
+               escreval("Nome: ", nomes[pos])
+               escreval("Vitorias: ", vitorias[pos])
+               escreval("Derrotas: ", derrotas[pos])
+               escreval("Pontos: ", Pontos(vitorias[pos], derrotas[pos]))
+               escreval("Situacao: ", situacao(vitorias[pos], derrotas[pos]))
+            senao
+               escreval("Jogador nao encontrado.")
+            fimse
+fimalgoritmo
+//Pedro Henrique, Heitor Rosa, Isaque Moura
