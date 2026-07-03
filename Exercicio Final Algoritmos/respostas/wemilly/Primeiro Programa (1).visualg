@@ -1,0 +1,102 @@
+algoritmo "SED- Wemilly-e-Anne"
+
+tipo campeao = registro
+  no: caractere
+  p:inteiro
+fimregistro
+
+funcao calcularpontos(vi, d: inteiro): inteiro
+  inicio
+  retorne vi * 3
+fimfuncao
+
+
+var
+
+bn: caractere
+No: vetor[1..16] de caractere
+d: vetor[1..16] de inteiro
+vi: vetor[1..16] de inteiro
+i, p, opcao, mp, lider, N, situacao: inteiro
+ganhador: campeao
+
+inicio
+
+  escreval("Quantos jogadores vão ser cadastrados (máximo 16 jogadores!)")
+  leia(N)
+
+  p<-0
+  vi <- 0
+  d <- 0
+
+  para i de 1 ate N faca
+    escreval("Digitar o nome do jogador ", i,":" )
+    leia(no[i])
+    escreval("Digite as derrotas ", i,":")
+    d[i] <- 0
+    escreval("Digite as vitórias ", i,":")
+    vi[i] <- 0
+  fimpara
+
+  se vi[i] >= 3 entao
+    escreval("Classificado!")
+  senao
+    se vi[i] = d[i] entao
+      escreval("Zona de Risco!")
+    senao
+      se d[i] >=3 entao
+        escreval("Eliminado!")
+      senao
+        escreval("Em disputa!")
+      fimse
+    fimse
+  fimse
+
+  limpatela
+
+  opcao<- -1
+  enquanto <> 0 faca
+    escreval("----------MENU----------")
+    escreval("1- ver ranking completo")
+    escreval("2- buscar jogador pelo nome")
+    escreval("0- sair")
+    escreval("Escolha uma das opções!")
+    leia(opcao)
+    
+    se opcao = 1 entao
+      escreval("")
+      escreval("----------Ranking----------")
+      mp<- -1
+      para i de 1 ate n faca
+        escreval(no[i], "- pts: ", p(vi[i, d[i]]), " - ", situacao(vi[i], d[i]))
+        se vi[i] >= 3 entao
+          escreval("Classificado!")
+        senao
+          se vi[i] = d[i] entao
+            escreval("Zona de Risco!")
+          senao
+            se d[i] >=3 entao
+              escreval("Eliminado!")
+            senao
+              escreval("Em disputa!")
+            fimse
+          fimse
+        fimse
+
+  i<- 0
+  lider<- 0
+
+  se (p[i] > p[lider]) entao
+    lider<- i
+
+    i<- i + i
+  fimse
+
+  enquanto (i < N) faca
+    escreval("Nome: ", N[i])
+    escreval("Pontos: ", p[i])
+    escreval("Situação: ", opcao[i])
+    escreval("Lider: ", no[lider])
+  fimenquanto
+
+fimalgoritmo
